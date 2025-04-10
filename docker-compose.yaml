@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  rabbitmq-mba-usp:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-mba-usp
+    ports:
+      - "5672:5672"     # porta do broker
+      - "15672:15672"   # painel de gerenciamento
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: mba
+      POSTGRES_PASSWORD: mba2025
+      POSTGRES_DB: classification
+    ports:
+      - "15432:5432"
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - rabbitmq-mba-usp
+      - postgres
+
+  worker:
+    build:
+      context: .
+      dockerfile: worker/Dockerfile
+    container_name: worker
+    depends_on:
+      - rabbitmq-mba-usp
+      - postgres
+  
+  

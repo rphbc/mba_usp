@@ -3,7 +3,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 
 from sintetic_data import gerar_dados_sinteticos
-from utils import classificar, lemmatizer
+from api.utils import classificar, lemmatizer
 
 # Gera dados sintéticos
 data = gerar_dados_sinteticos(100, noise=False)

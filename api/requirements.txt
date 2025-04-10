@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pika
+pandas
+scikit-learn
+joblib
+nltk
+psycopg2-binary

@@ -1,0 +1,7 @@
+pika
+pandas
+scikit-learn
+joblib
+nltk
+pydantic
+psycopg2-binary
